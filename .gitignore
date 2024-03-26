@@ -1,3 +1,4 @@
 .vagrant/
 .terraform/
 .terraform*
+aws_accessKeys.csv
