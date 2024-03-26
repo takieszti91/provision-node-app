@@ -1,0 +1,14 @@
+[Unit]
+Description=Sample NodeJS App Service
+After=docker.service
+Requires=docker.service
+ 
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop sample-node-api
+#ExecStart=/usr/bin/docker run -p 18000:18000 -d %i --name %i
+ExecStart=/usr/bin/docker run -p 18000:18000 -d sample-node-api --name sample-node-api
+ 
+[Install]
+WantedBy=multi-user.target
