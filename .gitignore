@@ -1,4 +1,6 @@
 .vagrant/
 .terraform/
 .terraform*
+terraform.tfstate*
 aws_accessKeys.csv
+variables_secure.tf
