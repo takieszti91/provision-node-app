@@ -132,3 +132,12 @@ More information about Terraform:<br />
 ### Note
 
 Please note, that ```terraform/modules/ecr/main.tf``` should be use LF (Linux style) line endings! CRLF (Windows style) is not acceptable, because it places ```\r``` symbol to the end of the commands! Search for ```dkr_build_cmd``` in this file for more information.
+
+## Try Node.js app from AWS
+
+After you provision the app, you can reach it from one of your Load Balancers' IP address.
+
+Now you don't have to specify port number. Traffic will be forwarded from Load Balancer's 80 to ECS task's 18000.
+
+Try the app for example from your browser:<br />
+```http://load-balancer-ip/accounts```
