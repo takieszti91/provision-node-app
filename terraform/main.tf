@@ -49,3 +49,9 @@ module "ecs" {
   ecs_sg = module.vpc.ecs_sg
   ecs_role = module.iam.ecs_role
 }
+
+module "auto_scaling" {
+  source = "./modules/auto-scaling"
+  ecs_cluster = module.ecs.ecs_cluster
+  ecs_service = module.ecs.ecs_service
+}
