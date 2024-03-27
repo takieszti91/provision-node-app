@@ -10,18 +10,24 @@ resource "aws_ecs_task_definition" "backend_task" {
     cpu = "256"
 
     // Fargate requires task definitions to have an execution role ARN to support ECR images
-    execution_role_arn = "${var.ecs_role.arn}"
+    execution_role_arn = var.ecs_role.arn
+    task_role_arn = var.ecs_role.arn
+
+    tags = {
+        Project = "provision-node-app"
+    }
 
     container_definitions = <<EOT
 [
     {
-        "name": "${var.aws_region}",
+        "name": "${var.container_name}",
         "image": "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.ecr_repo}:latest",
         "memory": 512,
         "essential": true,
         "portMappings": [
             {
                 "containerPort": 18000,
+                "protocol": "tcp",
                 "hostPort": 18000
             }
         ]
@@ -32,20 +38,39 @@ EOT
 
 resource "aws_ecs_cluster" "backend_cluster" {
     name = "backend_cluster_node_app"
+    setting {
+        name = "containerInsights"
+        value = "enabled"
+    }
+
+    tags = {
+        Project = "provision-node-app"
+    }
 }
 
 resource "aws_ecs_service" "backend_service" {
     name = "backend_service"
 
-    cluster = "${aws_ecs_cluster.backend_cluster.id}"
-    task_definition = "${aws_ecs_task_definition.backend_task.arn}"
+    cluster = aws_ecs_cluster.backend_cluster.id
+    task_definition = aws_ecs_task_definition.backend_task.arn
 
     launch_type = "FARGATE"
+    platform_version = "1.4.0"
     desired_count = 1
 
+    lifecycle {
+        ignore_changes = [ desired_count ]
+    }
+
     network_configuration {
-        subnets = ["${var.public_a.id}", "${var.public_b.id}"]
-        security_groups = ["${var.security_group_node_app.id}"]
+        subnets = [ var.ecs_subnet_a.id, var.ecs_subnet_b.id, var.ecs_subnet_c.id ]
+        security_groups = [ var.ecs_sg.id ]
         assign_public_ip = true
+    }
+
+    load_balancer {
+        target_group_arn = var.ecs_target_group.arn
+        container_name = var.container_name
+        container_port = 18000
     }
 }
