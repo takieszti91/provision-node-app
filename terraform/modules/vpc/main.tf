@@ -28,8 +28,8 @@ resource "aws_route" "internet_access" {
     gateway_id = "${aws_internet_gateway.internet_gateway.id}"
 }
 
-resource "aws_security_group" "security_group_example_app" {
-    name = "security_group_example_app"
+resource "aws_security_group" "security_group_node_app" {
+    name = "security_group_node_app"
     description = "Allow TLS inbound traffic on port 80 (http)"
     vpc_id = "${aws_vpc.vpc_node_app.id}"
 
