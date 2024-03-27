@@ -10,3 +10,10 @@ terraform {
 provider "aws" {
   region  = var.aws_region
 }
+
+module "ecr" {
+  source = "./modules/ecr"
+  aws_account = var.aws_account
+  aws_region = var.aws_region
+  ecr_repo = var.ecr_repo
+}
