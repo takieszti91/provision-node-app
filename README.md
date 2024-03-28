@@ -26,6 +26,8 @@ I used AWS ECS, because this is effective, scalable and cheap for small projects
 
 I used Terraform to provision the infrastructure.
 
+For more information jump to the [Note](#note) section.
+
 ## AWS Account
 
 You need an AWS Account and an IAM User with AdministratorAccess to provision the Node.js app to AWS.
@@ -108,6 +110,12 @@ In this case you also need to install:
 
 Docker and AWS CLI v2 needed too, because I used them from Terraform (```terraform/modules/ecr/main.tf```) to build the app image and push it to AWS ECR.
 
+### App repo
+
+- In this case you also need to clone the app repo manually
+- Put the Dockerfile from here to it
+- Change app repo path in ```terraform/modules/ecr/variables.tf```
+
 ## Provision with Terraform
 
 You need to run terraform from ```terraform``` directory.
@@ -129,7 +137,16 @@ terraform destroy
 More information about Terraform:<br />
 [Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform)
 
-### Note
+## Try Node.js app from AWS
+
+After you provision the app, you can reach it from one of your Load Balancers' IP address.
+
+Now you don't have to specify port number. Traffic will be forwarded from Load Balancer's 80 to ECS task's 18000.
+
+Try the app for example from your browser:<br />
+```http://load-balancer-ip/accounts```
+
+## Note
 
 This repo is only an example for presenting my technical knowledge, that's why I made it so that is easy to test. In a real world scenario I would do these steps differently:
 
@@ -140,12 +157,3 @@ This repo is only an example for presenting my technical knowledge, that's why I
 - Because I keep it easy to try, I included image build and push to Terraform ECR module.
     - Please note, that ```terraform/modules/ecr/main.tf``` should be use LF (Linux style) line endings! CRLF (Windows style) is not acceptable, because it places ```\r``` symbol to the end of the commands! Search for ```dkr_build_cmd``` in this file for more information.
 - In the real world I would add some security improvements and logging too.
-
-## Try Node.js app from AWS
-
-After you provision the app, you can reach it from one of your Load Balancers' IP address.
-
-Now you don't have to specify port number. Traffic will be forwarded from Load Balancer's 80 to ECS task's 18000.
-
-Try the app for example from your browser:<br />
-```http://load-balancer-ip/accounts```
