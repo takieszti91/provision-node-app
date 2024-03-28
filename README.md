@@ -139,12 +139,12 @@ More information about Terraform:<br />
 
 ## Try Node.js app from AWS
 
-After you provision the app, you can reach it from one of your Load Balancers' IP address.
+After you provision the app, you can reach it from the Load Balancer DNS name. This DNS name is an output value, so Terraform printed it to the console.
 
-Now you don't have to specify port number. Traffic will be forwarded from Load Balancer's 80 to ECS task's 18000.
+Now you don't have to specify port number. Traffic will be forwarded from Load Balancer port 80 to ECS task port 18000.
 
 Try the app for example from your browser:<br />
-```http://load-balancer-ip/accounts```
+```http://load-balancer-dns-name/accounts```
 
 ## Note
 
