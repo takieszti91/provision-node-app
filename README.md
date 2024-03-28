@@ -52,6 +52,8 @@ Use ```vagrant up``` command to start the VM and then ```vagrant ssh``` to login
 
 You can destroy the VM if not needed anymore with ```vagrant destroy```.
 
+If you use Windows as host machine and have timeout after ```vagrant up``` (while ```default: SSH auth method: private key```), try open VirtualBox GUI, leave it in the background and run ```vagrant up``` again.
+
 More information about Vagrant:<br />
 [Documentation | Vagrant | HashiCorp Developer](https://developer.hashicorp.com/vagrant/docs)
 
@@ -145,6 +147,8 @@ Now you don't have to specify port number. Traffic will be forwarded from Load B
 
 Try the app for example from your browser:<br />
 ```http://load-balancer-dns-name/accounts```
+
+Perhaps you have to wait some time after provision to get it work.
 
 ## Note
 
