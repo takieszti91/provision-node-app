@@ -131,7 +131,14 @@ More information about Terraform:<br />
 
 ### Note
 
-Please note, that ```terraform/modules/ecr/main.tf``` should be use LF (Linux style) line endings! CRLF (Windows style) is not acceptable, because it places ```\r``` symbol to the end of the commands! Search for ```dkr_build_cmd``` in this file for more information.
+This repo is only an example for presenting my technical knowledge, that's why I made it so that is easy to test. In a real world scenario I would do these steps differently:
+
+- Put the Dockerfile into the original app repo.
+- Put a Jenkinsfile into the original app repo and set a Jenkins job based on it.
+- Put a Jenkinsfile into this infrastructure repo and set a Jenkins job based on it.
+- Merging to master (in app repo) triggers the Jenkins build, build the Docker image and put it to the container registry with version tags. Jenkins job also update the version number in the Terraform module ECS to use the newer image in ECS task. This new commit on master in the infrastructure repo will trigger the other Jenkins job and deploy the app.
+- Because I keep it easy to try, I included image build and push to Terraform ECR module.
+    - Please note, that ```terraform/modules/ecr/main.tf``` should be use LF (Linux style) line endings! CRLF (Windows style) is not acceptable, because it places ```\r``` symbol to the end of the commands! Search for ```dkr_build_cmd``` in this file for more information.
 
 ## Try Node.js app from AWS
 
