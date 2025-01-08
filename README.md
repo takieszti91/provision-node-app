@@ -1,5 +1,31 @@
 # Provision Node.js App
-I choose this Node.js App to provision:<br />
+This project serves as a solution to a professional test. I created it to demonstrate my technical skills and expertise. The original task description is provided below.
+
+## DevOps Technical Test
+Please note that it is okay to provide simplified solutions. Go as far as you can! The purpose is to demonstrate your proficiency in key areas relevant to the job.
+
+If the task descriptions are not clear, please send your questions in email to clarify the requirements!
+
+Please zip your files and send that zip to us (or you might create a GitHub repository to share your solution).
+
+You are also encouraged to add comments to your code or explain your solution in a Readme file!
+
+### Task 2 - Infrastructure as code
+#### Objective:
+You get a Node.js application from the Engineering team and your task is to deploy that application to the Cloud (AWS, Azure or GCP) in a scalable fashion.
+
+For this exercise, you may choose any non-trivial Node.js application that implements a REST API.<br />
+For example: [https://github.com/digitalocean/sample-nodejs](https://github.com/digitalocean/sample-nodejs)
+
+#### Task:
+- You can use any Cloud technology/service to create a scalable deployment: please explain why you chose that technology!
+- Your infrastructure should be defined as code
+- Briefly explain how to deploy and update your infrastructure (in your Readme)
+- Assume that your Node.js application is stateless, it does not need a database or similar to store data. But your application might perform complex calculations or other longer operations.
+- Assume that your application will get a few million HTTP requests every day, but the exact load shape is unpredictable, there might be usage spikes during peak hours
+- Try to optimize for overall cost and maintainability
+
+## Selected Node.js Application for Demonstration
 [zowe/sample-node-api: A sample node js api for finding cars and accounts for a dealership](https://github.com/zowe/sample-node-api)
 
 ## Used technologies
